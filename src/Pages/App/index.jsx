@@ -10,6 +10,8 @@ import SignIn from '../SignIn'
 
 import Navbar from '../../Components/Navbar'
 
+import CheckoutSideMenu from '../../Components/CheckoutSideMenu'
+
 import './App.css'
 
 
@@ -38,6 +40,8 @@ function App() {
           <AppRoutes />
 
           <Navbar></Navbar>
+
+          <CheckoutSideMenu />
         </BrowserRouter>
 
       </ShoppingCardProvider>

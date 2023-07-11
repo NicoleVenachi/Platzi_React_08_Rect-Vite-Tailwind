@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { ShoppingCardContext } from '../../Context'
 
-import { PlusIcon } from '@heroicons/react/24/solid'
+import { CheckIcon, PlusIcon } from '@heroicons/react/24/solid'
 
 const Card = ({ data }) => {
 
@@ -12,6 +12,37 @@ const Card = ({ data }) => {
     context.setProductToShow(productDetail) //send product data 
   }
 
+  const addProductToCart = (event, productData) => {
+    event.stopPropagation() //hace que solo se ejecute este evento, y no otros padres
+    context.setCount(context.count + 1) //aumento el contador
+    context.setCartProducts([...context.cartProducts, productData]) //como si  hiera un push
+
+    context.openCheckoutSideMenu()
+    context.closeProductDetail()
+  }
+
+  const renderIcon = (id) => {
+    const isInCart = context.cartProducts.filter((cartProduct) => cartProduct.id === id).length > 0
+    //si es >0,ya esta en carrito
+    if (isInCart) {
+      return (
+        <div className='absolute top-0 right-0 flex justify-center items-center bg-black w-6 h-6 rounded-full m-2 p-1'
+        >
+          <CheckIcon className="h-6 w-6 text-white" />
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+          onClick={(event) => addProductToCart(event, data)}
+        >
+          <PlusIcon className="h-6 w-6 text-black-500" />
+        </div>
+      )
+    }
+
+  }
   return (
     <div
       className='bg-white cursor-pointer w-56 h-60'
@@ -22,11 +53,7 @@ const Card = ({ data }) => {
         <img src={data.images[0]}
           className='w-full h-full object-cover rounded-lg'
           alt={data.title} />
-        <div className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-          onClick={() => context.setCount(context.count + 1)}
-        >
-          <PlusIcon className="h-6 w-6 text-black-500" />
-        </div>
+        {renderIcon(data.id)}
       </figure>
       <p className='flex justify-between'>
         <span className='text-sm font-light'> {data.title} </span>

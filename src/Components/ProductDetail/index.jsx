@@ -7,7 +7,6 @@ import { ShoppingCardContext } from '../../Context'
 const ProductDetail = () => {
 
   const context = useContext(ShoppingCardContext)
-  console.log('PRODUCT TO SHOW:', context.productToShow);
 
   // Product - Img to show (entre todas las que hay)
   const [image, setImage] = useState(0)
