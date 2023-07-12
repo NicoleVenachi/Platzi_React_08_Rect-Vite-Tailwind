@@ -29,6 +29,7 @@ const CheckoutSideMenu = () => {
     context.setOrder([...context.order, orderToAdd]) //agrego nueva orden a lo que ya estaba
 
     context.setCartProducts([])//limpio la orden
+    context.setSearchByTitle(null)
   }
 
   return (
